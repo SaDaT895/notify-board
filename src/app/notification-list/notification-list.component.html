@@ -18,7 +18,11 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let row">
-      <button mat-icon-button matTooltip="View Notification">
+      <button
+        mat-icon-button
+        matTooltip="View Notification"
+        (click)="viewNotification(row)"
+      >
         <mat-icon>visibility</mat-icon>
       </button>
       <button
@@ -32,9 +36,15 @@
         <mat-icon>edit</mat-icon>
       </button>
       @if (row['link']) {
-      <button mat-icon-button matTooltip="Go to Link">
-        <mat-icon>link</mat-icon>
-      </button>
+      <a
+        mat-icon-button
+        *ngIf="row.link"
+        [href]="row.link"
+        target="_blank"
+        matTooltip="Open Link"
+      >
+        <mat-icon>open_in_new</mat-icon>
+      </a>
       }
     </td>
   </ng-container>

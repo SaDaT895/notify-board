@@ -5,8 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { DataService, Notification } from '../data.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { tap } from 'rxjs';
+import { take, tap } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewNotificationDialogComponent } from './view-notification-dialog';
 
 @Component({
   selector: 'app-notification-list',
@@ -27,6 +29,7 @@ import { RouterModule } from '@angular/router';
 })
 export class NotificationListComponent {
   private dataService = inject(DataService);
+  private dialogService = inject(MatDialog);
   notifications$ = this.dataService.notifications$.pipe(tap(console.log));
 
   columnNames: (keyof Notification)[] = ['id', 'icon', 'text', 'metadata'];
@@ -35,5 +38,11 @@ export class NotificationListComponent {
 
   deleteNotification(id: number) {
     this.dataService.delete(id);
+  }
+
+  viewNotification(notification: Notification) {
+    this.dialogService.open(ViewNotificationDialogComponent, {
+      data: notification,
+    });
   }
 }

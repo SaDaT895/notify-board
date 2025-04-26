@@ -1,0 +1,22 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <span mat-card-avatar>
+      <mat-icon>{{ notification.icon }}</mat-icon>
+    </span>
+    <mat-card-title>ID: {{ notification.id }}</mat-card-title>
+    <mat-card-subtitle>
+      <a *ngIf="notification.link" [href]="notification.link" target="_blank"
+        >Open Link</a
+      ></mat-card-subtitle
+    ></mat-card-header
+  >
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <p>Text: {{ notification.text }}</p>
+    Icon: {{ notification.icon }}
+    <p>Metadata: {{ notification.metadata }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <ng-content></ng-content>
+  </mat-card-actions>
+</mat-card>

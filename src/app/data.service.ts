@@ -17,20 +17,20 @@ export class DataService {
     {
       id: 1,
       icon: 'check_circle',
-      text: 'Notification 1',
+      text: 'Notification One',
       metadata: 'Metadata 1',
       link: 'https://example.com/1',
     },
     {
       id: 2,
       icon: 'error',
-      text: 'Notification 2',
+      text: 'Notification Two',
       metadata: 'Metadata 2',
     },
     {
       id: 3,
       icon: 'info',
-      text: 'Notification 3',
+      text: 'Notification Three',
       metadata: 'Metadata 3',
       link: 'https://example.com/3',
     },
