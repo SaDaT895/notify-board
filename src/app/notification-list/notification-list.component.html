@@ -1,0 +1,44 @@
+<table
+  mat-table
+  [dataSource]="(notifications$ | async) ?? []"
+  class="mat-elevation-z8"
+>
+  <ng-container
+    *ngFor="let columnName of columnNames"
+    [matColumnDef]="columnName"
+  >
+    <th mat-header-cell *matHeaderCellDef>{{ columnName | titlecase }}</th>
+    <td mat-cell *matCellDef="let row" [ngClass]="columnName">
+      {{ row[columnName] }}
+      @if (columnName === 'icon') {<mat-icon>{{ row[columnName] }}</mat-icon>
+      }
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button matTooltip="View Notification">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Delete Notification"
+        (click)="deleteNotification(row.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Edit Notification">
+        <mat-icon>edit</mat-icon>
+      </button>
+      @if (row['link']) {
+      <button mat-icon-button matTooltip="Go to Link">
+        <mat-icon>link</mat-icon>
+      </button>
+      }
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
