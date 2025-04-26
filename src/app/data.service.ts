@@ -41,9 +41,8 @@ export class DataService {
 
   notifications$ = this._notifications.asObservable();
 
-  add(notification: Notification) {
-    notification.id = Date.now();
-    this.notifications.push(notification);
+  add(notification: Omit<Notification, 'id'>) {
+    this.notifications.push({ id: Date.now(), ...notification });
     this._notifications.next(this.notifications);
   }
 
