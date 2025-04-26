@@ -13,5 +13,5 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './notification-view.component.scss',
 })
 export class NotificationViewComponent {
-  @Input() notification!: Notification;
+  @Input() notification!: Omit<Notification, 'id'>;
 }

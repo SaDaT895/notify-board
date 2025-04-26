@@ -3,10 +3,8 @@
   [dataSource]="(notifications$ | async) ?? []"
   class="mat-elevation-z8"
 >
-  <ng-container
-    *ngFor="let columnName of columnNames"
-    [matColumnDef]="columnName"
-  >
+  @for (columnName of columnNames; track columnName) {
+  <ng-container [matColumnDef]="columnName">
     <th mat-header-cell *matHeaderCellDef>{{ columnName | titlecase }}</th>
     <td mat-cell *matCellDef="let row" [ngClass]="columnName">
       {{ row[columnName] }}
@@ -14,6 +12,7 @@
       }
     </td>
   </ng-container>
+  }
 
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
@@ -26,7 +25,6 @@
         <mat-icon>visibility</mat-icon>
       </button>
       <button
-        mat-icon-button
         matTooltip="Delete Notification"
         (click)="deleteNotification(row.id)"
       >
@@ -38,7 +36,6 @@
       @if (row['link']) {
       <a
         mat-icon-button
-        *ngIf="row.link"
         [href]="row.link"
         target="_blank"
         matTooltip="Open Link"
