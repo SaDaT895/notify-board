@@ -1,3 +1,6 @@
-mat-icon {
-  vertical-align: text-top;
+mat-card {
+  max-width: 512px;
+  mat-icon {
+    vertical-align: -webkit-baseline-middle;
+  }
 }

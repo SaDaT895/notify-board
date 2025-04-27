@@ -4,7 +4,9 @@
   @for (item of form.controls | keyvalue ; track $index) {
   <mat-form-field>
     <mat-label>{{ item.key | titlecase }}</mat-label>
-    <input matInput [formControlName]="item.key" />
+    @if (item.key === 'text') {
+    <textarea matInput [formControlName]="item.key"></textarea> } @else {
+    <input matInput [formControlName]="item.key" /> }
   </mat-form-field>
   }
 
