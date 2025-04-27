@@ -3,7 +3,7 @@
     <span mat-card-avatar>
       <mat-icon>{{ notification.icon }}</mat-icon>
     </span>
-    <mat-card-title>{{ notification.text! | trim | ellipses }}</mat-card-title>
+    <mat-card-title>{{ notification.text | trim | ellipses }} </mat-card-title>
     <mat-card-subtitle>
       <a *ngIf="notification.link" [href]="notification.link" target="_blank">{{
         notification.link
@@ -14,7 +14,7 @@
   <mat-card-content>
     <p>Icon: {{ notification.icon }}</p>
     <p>Metadata: {{ notification.metadata }}</p>
-    <p>Text: {{ notification.text! | trim }}</p>
+    <p>Text: {{ notification.text | trim }}</p>
   </mat-card-content>
   <mat-card-actions>
     <ng-content></ng-content>

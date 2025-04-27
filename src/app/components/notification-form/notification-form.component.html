@@ -10,7 +10,7 @@
       [formControlName]="item.key"
       cdkTextareaAutosize
       cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="20"
+      cdkAutosizeMaxRows="10"
     ></textarea>
     } @else { <input matInput [formControlName]="item.key" /> } @if
     (form.get(item.key)?.hasError('required')) {
@@ -26,6 +26,6 @@
   </button>
 </form>
 
-@if (this.form.dirty) {
+@if (this.form.dirty || editing) {
 <app-notification-view [notification]="this.form.value"></app-notification-view>
 }

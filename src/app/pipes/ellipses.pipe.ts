@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EllipsesPipe implements PipeTransform {
   transform(value: string): string {
-    return value.length > 30 ? value.slice(0, 30) + '...' : value;
+    return value.length > 35 ? value.slice(0, 35) + '...' : value;
   }
 }

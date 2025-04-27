@@ -7,4 +7,5 @@ export const routes: Routes = [
   { path: 'notifications', component: NotificationListComponent },
   { path: 'notifications/new', component: NotificationFormComponent },
   { path: 'notifications/:id/edit', component: NotificationFormComponent },
+  { path: '**', redirectTo: 'notifications' },
 ];
