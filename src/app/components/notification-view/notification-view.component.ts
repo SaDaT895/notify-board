@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule, SlicePipe } from '@angular/common';
-import { Notification } from '../data.service';
+import { Notification } from '../../services/data.service';
 import { MatDividerModule } from '@angular/material/divider';
-import { TrimPipe } from '../trim.pipe';
-import { EllipsesPipe } from '../ellipses.pipe';
+import { TrimPipe } from '../../pipes/trim.pipe';
+import { EllipsesPipe } from '../../pipes/ellipses.pipe';
 
 @Component({
   selector: 'app-notification-view',

@@ -2,7 +2,7 @@ import { CommonModule, AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { DataService, Notification } from '../data.service';
+import { DataService, Notification } from '../../services/data.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { take, tap } from 'rxjs';

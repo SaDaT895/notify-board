@@ -8,7 +8,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { Notification } from '../data.service';
+import { Notification } from '../../services/data.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
