@@ -1,9 +1,11 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -43,20 +45,22 @@ export class NotificationFormComponent implements OnInit {
 
   form = new FormGroup({
     icon: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern(/\S/)],
       nonNullable: true,
     }),
     text: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern(/\S/)],
       nonNullable: true,
     }),
     metadata: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern(/\S/)],
       nonNullable: true,
     }),
     link: new FormControl('', {
       validators: [
-        Validators.pattern(/^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\S*)?$/i),
+        Validators.pattern(
+          /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\S*)?|^(?!https?:\/\/).[\S]*$/i
+        ),
       ],
       nonNullable: true,
     }),
