@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { KeyValuePipe, TitleCasePipe } from '@angular/common';
+import { CommonModule, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +27,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatIconModule,
     NotificationViewComponent,
     MatDividerModule,
+    CommonModule,
   ],
+  standalone: true,
   templateUrl: './notification-form.component.html',
   styleUrl: './notification-form.component.scss',
 })
@@ -78,16 +80,16 @@ export class NotificationFormComponent implements OnInit {
     const { icon, text, metadata, link } = this.form.value;
     if (this.editing && this.id) {
       this.dataService.update(this.id, {
-        icon: icon!,
-        text: text!,
-        metadata: metadata!,
+        icon: icon!.trim(),
+        text: text!.trim(),
+        metadata: metadata!.trim(),
         link: link || undefined,
       });
     } else
       this.dataService.add({
-        icon: icon!,
-        text: text!,
-        metadata: metadata!,
+        icon: icon!.trim(),
+        text: text!.trim(),
+        metadata: metadata!.trim(),
         link: link || undefined,
       });
     this.router.navigateByUrl('/notifications');
