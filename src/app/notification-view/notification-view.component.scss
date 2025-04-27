@@ -3,4 +3,8 @@ mat-card {
   mat-icon {
     vertical-align: -webkit-baseline-middle;
   }
+  mat-card-content {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
 }

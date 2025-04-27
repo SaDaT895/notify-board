@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule, SlicePipe } from '@angular/common';
 import { Notification } from '../data.service';
 import { MatDividerModule } from '@angular/material/divider';
+import { TrimPipe } from '../trim.pipe';
+import { EllipsesPipe } from '../ellipses.pipe';
 
 @Component({
   selector: 'app-notification-view',
@@ -12,7 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     CommonModule,
     MatDividerModule,
-    SlicePipe,
+    TrimPipe,
+    EllipsesPipe,
   ],
   standalone: true,
   templateUrl: './notification-view.component.html',
