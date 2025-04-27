@@ -31,9 +31,13 @@
       >
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Edit Notification">
+      <a
+        mat-icon-button
+        [routerLink]="['/notifications/', row.id, 'edit']"
+        matTooltip="Edit notification"
+      >
         <mat-icon>edit</mat-icon>
-      </button>
+      </a>
       @if (row['link']) {
       <a
         mat-icon-button

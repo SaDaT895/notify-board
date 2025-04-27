@@ -42,12 +42,17 @@ export class DataService {
   notifications$ = this._notifications.asObservable();
 
   add(notification: Omit<Notification, 'id'>) {
-    this.notifications.push({ id: Date.now(), ...notification });
+    this.notifications.push({
+      id: Math.max(...this.notifications.map((i) => i.id)) + 1,
+      ...notification,
+    });
     this._notifications.next(this.notifications);
+    console.log('Added', notification);
   }
 
-  update(id: number, notification: Notification) {
-    const index = this.notifications.findIndex((n) => n.id === id);
+  update(id: number, notification: Omit<Notification, 'id'>) {
+    console.log('Updated', id, notification);
+    const index = this.notifications.findIndex((n) => n.id == id);
     this.notifications[index] = { ...notification, id };
     this._notifications.next(this.notifications);
   }

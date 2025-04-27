@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import {
   FormControl,
@@ -9,10 +9,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { KeyValuePipe, TitleCasePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import { NotificationViewComponent } from '../notification-view/notification-view.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-notification-form',
   imports: [
@@ -23,29 +25,71 @@ import { MatIconModule } from '@angular/material/icon';
     TitleCasePipe,
     MatButtonModule,
     MatIconModule,
+    NotificationViewComponent,
+    MatDividerModule,
   ],
   templateUrl: './notification-form.component.html',
   styleUrl: './notification-form.component.scss',
 })
-export class NotificationFormComponent {
+export class NotificationFormComponent implements OnInit {
   private dataService = inject(DataService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+
+  @Input() id?: number;
+  editing = false;
 
   form = new FormGroup({
-    icon: new FormControl('', { validators: [Validators.required] }),
-    text: new FormControl('', { validators: [Validators.required] }),
-    metadata: new FormControl('', { validators: [Validators.required] }),
-    link: new FormControl(''),
+    icon: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    text: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    metadata: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    link: new FormControl('', {
+      validators: [
+        Validators.pattern(/^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\S*)?$/i),
+      ],
+      nonNullable: true,
+    }),
   });
+
+  ngOnInit(): void {
+    if (this.id) {
+      this.dataService.notifications$
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((notifications) => {
+          const notification = notifications.find((n) => n.id == this.id);
+          if (notification) {
+            this.editing = true;
+            this.form.patchValue(notification);
+          } else this.router.navigateByUrl('/notifications');
+        });
+    }
+  }
 
   submit() {
     const { icon, text, metadata, link } = this.form.value;
-    this.dataService.add({
-      icon: icon!,
-      text: text!,
-      metadata: metadata!,
-      link: link || undefined,
-    });
+    if (this.editing && this.id) {
+      this.dataService.update(this.id, {
+        icon: icon!,
+        text: text!,
+        metadata: metadata!,
+        link: link || undefined,
+      });
+    } else
+      this.dataService.add({
+        icon: icon!,
+        text: text!,
+        metadata: metadata!,
+        link: link || undefined,
+      });
     this.router.navigateByUrl('/notifications');
   }
 }

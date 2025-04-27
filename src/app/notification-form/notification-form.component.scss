@@ -1,5 +1,12 @@
 form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  margin: 1rem;
+}
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }

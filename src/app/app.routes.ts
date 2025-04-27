@@ -6,4 +6,5 @@ export const routes: Routes = [
   { path: '', redirectTo: 'notifications', pathMatch: 'full' },
   { path: 'notifications', component: NotificationListComponent },
   { path: 'notifications/new', component: NotificationFormComponent },
+  { path: 'notifications/:id/edit', component: NotificationFormComponent },
 ];

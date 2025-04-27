@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { Notification } from '../data.service';
 import { MatDividerModule } from '@angular/material/divider';
+import { UrlPipe } from '../url.pipe';
 
 @Component({
   selector: 'app-notification-view',
@@ -13,5 +14,5 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './notification-view.component.scss',
 })
 export class NotificationViewComponent {
-  @Input() notification!: Omit<Notification, 'id'>;
+  @Input() notification!: Partial<Notification>;
 }

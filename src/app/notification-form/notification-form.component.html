@@ -1,5 +1,5 @@
 <form [formGroup]="form" (submit)="submit()">
-  <h2>Create new notification</h2>
+  <h2>{{ editing ? "Edit notification " + id : "Create new Notification" }}</h2>
 
   @for (item of form.controls | keyvalue ; track $index) {
   <mat-form-field>
@@ -12,3 +12,4 @@
     Submit
   </button>
 </form>
+<app-notification-view [notification]="this.form.value"></app-notification-view>
