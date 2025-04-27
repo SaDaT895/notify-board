@@ -8,7 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { take, tap } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewNotificationDialogComponent } from './view-notification-dialog';
+import { ViewNotificationDialogComponent } from '../view-notification-dialog.component';
 
 @Component({
   selector: 'app-notification-list',
@@ -36,9 +36,7 @@ export class NotificationListComponent {
 
   displayedColumns = [...this.columnNames, 'actions'];
 
-  deleteNotification(id: number) {
-    this.dataService.delete(id);
-  }
+  deleteNotification(id: number) {}
 
   viewNotification(notification: Notification) {
     this.dialogService.open(ViewNotificationDialogComponent, {

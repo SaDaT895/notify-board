@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { NotificationViewComponent } from '../notification-view/notification-view.component';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -8,8 +7,9 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { Notification } from '../../services/data.service';
 import { MatButtonModule } from '@angular/material/button';
+import { NotificationViewComponent } from './notification-view/notification-view.component';
+import { Notification } from '../services/data.service';
 
 @Component({
   selector: 'app-view-notification-dialog',
