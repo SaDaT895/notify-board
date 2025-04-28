@@ -8,6 +8,7 @@ export interface Notification {
   metadata: string;
   link?: string;
   color?: string;
+  image?: string;
 }
 
 @Injectable({

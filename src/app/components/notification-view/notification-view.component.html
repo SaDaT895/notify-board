@@ -1,9 +1,22 @@
 <mat-card appearance="outlined">
   <mat-card-header [ngStyle]="{ color: notification.color }">
-    <span mat-card-avatar>
+    <span
+      mat-card-avatar
+      [ngStyle]="{
+        backgroundImage: 'url(' + notification.image + ')',
+        backgroundSize: 'cover'
+      }"
+    >
+      @if (!notification.image) {
       <mat-icon>{{ notification.icon }}</mat-icon>
+      }
     </span>
-    <mat-card-title>{{ notification.text | trim | ellipses }} </mat-card-title>
+    <mat-card-title
+      >{{ notification.text | trim | ellipses }}
+      @if(notification.image) {
+      <mat-icon>{{ notification.icon }}</mat-icon>
+      }
+    </mat-card-title>
     <mat-card-subtitle>
       <a *ngIf="notification.link" [href]="notification.link" target="_blank">{{
         notification.link
@@ -11,6 +24,9 @@
     ></mat-card-header
   >
   <mat-divider></mat-divider>
+  @if (notification.image) {
+  <img mat-card-image [src]="notification.image" alt="Your uploaded image" />
+  }
   <mat-card-content>
     <p>Icon: {{ notification.icon }}</p>
     <p>Metadata: {{ notification.metadata }}</p>

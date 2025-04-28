@@ -65,7 +65,10 @@ export class NotificationFormComponent implements OnInit {
       nonNullable: true,
     }),
     color: new FormControl('', { nonNullable: true }),
+    image: new FormControl('', { nonNullable: true }),
   });
+
+  file = new FormControl(null);
 
   ngOnInit(): void {
     if (this.id) {
@@ -76,13 +79,16 @@ export class NotificationFormComponent implements OnInit {
           if (notification) {
             this.editing = true;
             this.form.patchValue(notification);
-          } else this.router.navigateByUrl('/notifications');
+          } else {
+            console.error('Notification not found', this.id);
+            this.router.navigateByUrl('/notifications');
+          }
         });
     }
   }
 
   submit() {
-    const { icon, text, metadata, link, color } = this.form.value;
+    const { icon, text, metadata, link, color, image } = this.form.value;
     if (this.editing && this.id) {
       this.dataService.update(this.id, {
         icon: icon!.trim(),
@@ -90,6 +96,7 @@ export class NotificationFormComponent implements OnInit {
         metadata: metadata!.trim(),
         link: link || undefined,
         color: color || undefined,
+        image: image || undefined,
       });
     } else
       this.dataService.add({
@@ -98,7 +105,31 @@ export class NotificationFormComponent implements OnInit {
         metadata: metadata!.trim(),
         link: link || undefined,
         color: color || undefined,
+        image: image || undefined,
       });
     this.router.navigateByUrl('/notifications');
+  }
+
+  onFileSelected($event: Event) {
+    const file = ($event.target as HTMLInputElement).files?.[0];
+    const reader = new FileReader();
+
+    if (file) {
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        this.form.patchValue({ image: base64String });
+        this.form.markAsDirty(); // For preview to render on image upload
+      };
+      reader.onerror = () => {
+        console.error('Error reading file.');
+        alert('Failed to upload image. Please try again.');
+      };
+      reader.readAsDataURL(file);
+    } else this.clearImage();
+  }
+
+  clearImage() {
+    this.form.controls.image.reset();
+    this.file.reset();
   }
 }

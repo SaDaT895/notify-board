@@ -1,7 +1,18 @@
 <form [formGroup]="form" (submit)="submit()">
   <h2>{{ editing ? "Edit notification " + id : "Create new Notification" }}</h2>
 
-  @for (item of form.controls | keyvalue ; track $index) {
+  @for (item of form.controls | keyvalue ; track $index) { @if (item.key ===
+  'image') {
+  <mat-label>{{ item.key | titlecase }}</mat-label>
+  <input
+    class="image-input"
+    type="file"
+    (change)="onFileSelected($event)"
+    [formControl]="file"
+    accept="image/*"
+  />
+  <button mat-button type="button" (click)="clearImage()">Clear Image</button>
+  } @else {
   <mat-form-field>
     <mat-label>{{ item.key | titlecase }}</mat-label>
     @if (item.key === 'text') {
@@ -12,14 +23,15 @@
       cdkAutosizeMinRows="1"
       cdkAutosizeMaxRows="10"
     ></textarea>
-    } @else { <input matInput [formControlName]="item.key" /> } @if
+    } @else {
+    <input matInput [formControlName]="item.key" /> } @if
     (form.get(item.key)?.hasError('required')) {
     <mat-error> {{ item.key | titlecase }} is required </mat-error>
     } @if (form.get(item.key)?.hasError('pattern')) {
     <mat-error> {{ item.key | titlecase }} is invalid </mat-error>
     }
   </mat-form-field>
-  }
+  } }
 
   <button mat-raised-button type="submit" [disabled]="form.invalid">
     Submit

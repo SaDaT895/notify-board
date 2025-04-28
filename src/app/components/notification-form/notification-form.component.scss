@@ -3,6 +3,9 @@ form {
   flex-direction: column;
   justify-content: center;
   margin: 1rem;
+  .image-input {
+    margin-bottom: 1rem;
+  }
 }
 
 :host {
