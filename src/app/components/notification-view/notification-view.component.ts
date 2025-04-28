@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { CommonModule, SlicePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Notification } from '../../services/data.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { TrimPipe } from '../../pipes/trim.pipe';

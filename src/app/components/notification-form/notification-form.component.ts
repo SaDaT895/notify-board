@@ -1,18 +1,16 @@
 import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule, KeyValuePipe, TitleCasePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NotificationViewComponent } from '../notification-view/notification-view.component';
 import { MatDividerModule } from '@angular/material/divider';
