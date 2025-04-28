@@ -74,7 +74,6 @@ export class DataService {
     const index = notifications.findIndex((n) => n.id == id);
     if (index === -1) {
       console.error('Notification not found ', id);
-      alert('Could not find notification to update');
       return;
     }
     try {
