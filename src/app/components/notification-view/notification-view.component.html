@@ -29,7 +29,7 @@
   }
   <mat-card-content>
     <p>Icon: {{ notification.icon }}</p>
-    <p>Metadata: {{ notification.metadata }}</p>
+    <p>Metadata: {{ notification.metadata | trim }}</p>
     <p>Text: {{ notification.text | trim }}</p>
   </mat-card-content>
   <mat-card-actions>
