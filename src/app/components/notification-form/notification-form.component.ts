@@ -64,6 +64,7 @@ export class NotificationFormComponent implements OnInit {
       ],
       nonNullable: true,
     }),
+    color: new FormControl('', { nonNullable: true }),
   });
 
   ngOnInit(): void {
@@ -81,13 +82,14 @@ export class NotificationFormComponent implements OnInit {
   }
 
   submit() {
-    const { icon, text, metadata, link } = this.form.value;
+    const { icon, text, metadata, link, color } = this.form.value;
     if (this.editing && this.id) {
       this.dataService.update(this.id, {
         icon: icon!.trim(),
         text: text!.trim(),
         metadata: metadata!.trim(),
         link: link || undefined,
+        color: color || undefined,
       });
     } else
       this.dataService.add({
@@ -95,6 +97,7 @@ export class NotificationFormComponent implements OnInit {
         text: text!.trim(),
         metadata: metadata!.trim(),
         link: link || undefined,
+        color: color || undefined,
       });
     this.router.navigateByUrl('/notifications');
   }
