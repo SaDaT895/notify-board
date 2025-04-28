@@ -61,7 +61,6 @@ export class DataService {
 
       notifications.push({ ...notification, id: newId });
       localStorage.setItem('notifications', JSON.stringify(notifications));
-
       this._notifications.next(notifications);
       console.log('Added', newId, notification);
     } catch (error) {
@@ -72,15 +71,14 @@ export class DataService {
   update(id: number, notification: Omit<Notification, 'id'>) {
     const notifications = this._notifications.getValue();
     const index = notifications.findIndex((n) => n.id == id);
-    if (index === -1) {
-      console.error('Notification not found ', id);
-      return;
-    }
     try {
+      if (index === -1) {
+        throw new Error(`Notification ${id} not found`);
+      }
       notifications[index] = { ...notification, id };
       this._notifications.next(notifications);
       localStorage.setItem('notifications', JSON.stringify(notifications));
-      console.log('Updated', id, notification);
+      console.log('Updated ', id, notification);
     } catch (error) {
       console.error('Error updating notification in localStorage:', error);
     }
