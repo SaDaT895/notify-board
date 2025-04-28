@@ -1,8 +1,4 @@
-<table
-  mat-table
-  [dataSource]="(notifications$ | async) ?? []"
-  class="mat-elevation-z8"
->
+<table mat-table [dataSource]="notifications$ | async">
   @for (columnName of columnNames; track columnName) {
   <ng-container [matColumnDef]="columnName">
     <th mat-header-cell *matHeaderCellDef>{{ columnName | titlecase }}</th>

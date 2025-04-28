@@ -36,7 +36,9 @@ export class NotificationListComponent {
 
   displayedColumns = [...this.columnNames, 'actions'];
 
-  deleteNotification(id: number) {}
+  deleteNotification(id: number) {
+    this.dataService.delete(id);
+  }
 
   viewNotification(notification: Notification) {
     this.dialogService.open(ViewNotificationDialogComponent, {
