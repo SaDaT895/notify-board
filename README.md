@@ -1,6 +1,6 @@
 # NotifyBoard
 
-An admin panel to manage notifications
+An admin panel to manage notifications.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
 
@@ -14,6 +14,6 @@ I kept it simple:
 
 ## Get started:
 
-`npm start` to start local server
+`npm start` to start local server.
 
 `npm test` to run test(s).
