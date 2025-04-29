@@ -14,6 +14,6 @@ I kept it simple:
 
 ## Get started:
 
-`npm start` to start local server.
+`npm install && npm start` to start local frontend.
 
 `npm test` to run test(s).
