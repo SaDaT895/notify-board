@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 export interface Notification {
   id: number;
@@ -15,8 +15,8 @@ export interface Notification {
   providedIn: 'root',
 })
 export class DataService {
-  private _notifications = new BehaviorSubject<Notification[]>([]);
-  notifications$ = this._notifications.asObservable();
+  private _notifications = signal<Notification[]>([]);
+  notifications$ = toObservable(this._notifications);
 
   constructor() {
     let notifications = localStorage.getItem('notifications');
@@ -48,12 +48,12 @@ export class DataService {
       notifications = '[]';
     }
     localStorage.setItem('notifications', notifications);
-    this._notifications.next(JSON.parse(notifications));
+    this._notifications.set(JSON.parse(notifications));
   }
 
   add(notification: Omit<Notification, 'id'>) {
     try {
-      const notifications = this._notifications.getValue();
+      const notifications = this._notifications();
       const newId =
         notifications.length > 0
           ? Math.max(...notifications.map((n) => n.id)) + 1
@@ -61,7 +61,7 @@ export class DataService {
 
       notifications.push({ ...notification, id: newId });
       localStorage.setItem('notifications', JSON.stringify(notifications));
-      this._notifications.next(notifications);
+      this._notifications.set(notifications);
       console.log('Added', newId, notification);
     } catch (error) {
       console.error('Error adding notification to localStorage:', error);
@@ -69,14 +69,14 @@ export class DataService {
   }
 
   update(id: number, notification: Omit<Notification, 'id'>) {
-    const notifications = this._notifications.getValue();
+    const notifications = this._notifications();
     const index = notifications.findIndex((n) => n.id == id);
     try {
       if (index === -1) {
         throw new Error(`Notification ${id} not found`);
       }
       notifications[index] = { ...notification, id };
-      this._notifications.next(notifications);
+      this._notifications.set(notifications);
       localStorage.setItem('notifications', JSON.stringify(notifications));
       console.log('Updated ', id, notification);
     } catch (error) {
@@ -86,10 +86,8 @@ export class DataService {
 
   delete(id: number) {
     try {
-      let notifications = this._notifications
-        .getValue()
-        .filter((n) => n.id !== id);
-      this._notifications.next(notifications);
+      let notifications = this._notifications().filter((n) => n.id !== id);
+      this._notifications.set(notifications);
       localStorage.setItem('notifications', JSON.stringify(notifications));
       console.log('Deleted', id);
     } catch (error) {
