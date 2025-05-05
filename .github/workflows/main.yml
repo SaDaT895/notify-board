@@ -1,0 +1,41 @@
+name: Jest Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use the Node.js version compatible with your Angular project
+          cache: 'npm' # Cache npm dependencies
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Run Jest tests
+      - name: Run Jest tests
+        run: npm run test
+        env:
+          CI: true # Ensure Jest runs in CI mode
+
+      # Optional: Build the project to ensure it compiles
+      - name: Build Angular project
+        run: npm run build -- --configuration production
+        env:
+          CI: true
