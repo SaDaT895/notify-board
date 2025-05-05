@@ -12,7 +12,6 @@ import { ViewNotificationDialogComponent } from '../view-notification-dialog.com
 
 @Component({
   selector: 'app-notification-list',
-  standalone: true,
   imports: [
     CommonModule,
     MatTableModule,

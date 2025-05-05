@@ -13,7 +13,6 @@ import { Notification } from '../services/data.service';
 
 @Component({
   selector: 'app-view-notification-dialog',
-  standalone: true,
   template: `
     <h2 mat-dialog-title>Notification {{ notification.id }}</h2>
     <mat-dialog-content>

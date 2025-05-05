@@ -17,7 +17,6 @@ import { EllipsesPipe } from '../../pipes/ellipses.pipe';
     TrimPipe,
     EllipsesPipe,
   ],
-  standalone: true,
   templateUrl: './notification-view.component.html',
   styleUrl: './notification-view.component.scss',
 })

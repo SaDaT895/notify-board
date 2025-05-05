@@ -29,7 +29,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatDividerModule,
     CommonModule,
   ],
-  standalone: true,
   templateUrl: './notification-form.component.html',
   styleUrl: './notification-form.component.scss',
 })
