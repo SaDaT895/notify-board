@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { DataService, Notification } from './data.service';
 
 describe('DataService', () => {
@@ -22,7 +23,9 @@ describe('DataService', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
     store['notifications'] = JSON.stringify(mockNotifications);
-    service = new DataService();
+    TestBed.runInInjectionContext(() => {
+      service = new DataService();
+    });
   });
 
   afterEach(() => {

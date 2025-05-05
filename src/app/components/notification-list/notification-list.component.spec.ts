@@ -1,9 +1,4 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NotificationListComponent } from './notification-list.component';
 import { of } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,17 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataService } from '../../services/data.service';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatTableHarness } from '@angular/material/table/testing';
-import { MatIconHarness } from '@angular/material/icon/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
-import { HarnessLoader, parallel } from '@angular/cdk/testing';
+import { HarnessLoader } from '@angular/cdk/testing';
 import { Notification } from '../../services/data.service';
-import { Router, RouterModule } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
+
 describe('NotificationListComponent', () => {
   let component: NotificationListComponent;
   let fixture: ComponentFixture<NotificationListComponent>;
   let loader: HarnessLoader;
-  let dataService: DataService;
+  let dataService: any;
 
   const mockNotifications = [
     {
@@ -61,7 +55,7 @@ describe('NotificationListComponent', () => {
     component = fixture.componentInstance;
     fixture.autoDetectChanges();
     loader = TestbedHarnessEnvironment.loader(fixture);
-    dataService = TestBed.inject(DataService);
+    dataService = TestBed.inject(DataService) as jest.Mocked<DataService>;
   });
 
   it('should create', () => {
