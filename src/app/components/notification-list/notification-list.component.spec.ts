@@ -17,7 +17,7 @@ describe('NotificationListComponent', () => {
   let component: NotificationListComponent;
   let fixture: ComponentFixture<NotificationListComponent>;
   let loader: HarnessLoader;
-  let dataService: any;
+  let dataService: jest.Mocked<DataService>;
 
   const mockNotifications = [
     {
