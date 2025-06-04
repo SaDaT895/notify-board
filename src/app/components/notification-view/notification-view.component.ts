@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
@@ -21,5 +21,5 @@ import { EllipsesPipe } from '../../pipes/ellipses.pipe';
   styleUrl: './notification-view.component.scss',
 })
 export class NotificationViewComponent {
-  @Input() notification!: Partial<Notification>;
+  notification = input.required<Partial<Notification>>();
 }

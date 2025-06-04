@@ -44,9 +44,7 @@ export class DataService {
       },
     ];
     notifications ??= JSON.stringify(sample);
-    if (!notifications) {
-      notifications = '[]';
-    }
+    notifications ||= '[]'; // if localStorage key is set, but is empty
     localStorage.setItem('notifications', notifications);
     this._notifications.set(JSON.parse(notifications));
   }

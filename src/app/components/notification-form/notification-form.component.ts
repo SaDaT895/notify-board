@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import {
   FormControl,
@@ -37,7 +37,7 @@ export class NotificationFormComponent implements OnInit {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
 
-  @Input() id?: number;
+  id = input<number>();
   editing = false;
 
   form = new FormGroup({
@@ -55,6 +55,7 @@ export class NotificationFormComponent implements OnInit {
     }),
     link: new FormControl('', {
       validators: [
+        // Regex for external links if the input starts with 'http'
         Validators.pattern(
           /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\S*)?|^(?!https?:\/\/).[\S]*$/i
         ),
@@ -72,7 +73,7 @@ export class NotificationFormComponent implements OnInit {
       this.dataService.notifications$
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((notifications) => {
-          const notification = notifications.find((n) => n.id == this.id);
+          const notification = notifications.find((n) => n.id == this.id());
           if (notification) {
             this.editing = true;
             this.form.patchValue(notification);
@@ -86,8 +87,9 @@ export class NotificationFormComponent implements OnInit {
 
   submit() {
     const { icon, text, metadata, link, color, image } = this.form.value;
-    if (this.editing && this.id) {
-      this.dataService.update(this.id, {
+    const toEdit = this.id();
+    if (this.editing && toEdit) {
+      this.dataService.update(toEdit, {
         icon: icon!.trim(),
         text: text!.trim(),
         metadata: metadata!.trim(),
